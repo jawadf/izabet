@@ -40,7 +40,6 @@ export default StyleSheet.create({
             borderColor: 'white',
             borderStyle: 'solid',
             borderWidth: 2,
-            color: 'white',
             height: 40,
             paddingTop: 6
         },
