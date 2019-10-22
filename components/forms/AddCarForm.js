@@ -1,20 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { checkTickets, redirectTrue } from '../../actions';
+import { addVehicle, redirectTrue } from '../../actions';
 import styles from '../style/styles';
 import { 
     Text,
     TextInput,
     View,
     TouchableHighlight,
-    Picker
+    Image,
+    ImageBackground
     } from 'react-native';
 
 class Form extends React.Component {
-    state = {
-        pickedValue: 'Z'
-    }
 
     renderError({error, touched}) {
         if(error && touched) {
@@ -36,54 +34,31 @@ class Form extends React.Component {
         );
     }
 
-   
-
-    renderPicker = ({input, name, meta, placeholder}) => {
-        const renderField = (name) => {
-                return (
-                <Picker 
-                    {...input} 
-                    placeholderTextColor={'#fff'}
-                    selectedValue={this.state.pickedValue}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ pickedValue: itemValue })}
-                    autoComplete="off"
-                    className={name} 
-                    style={styles.textInput} 
-                >
-                    <Picker.Item label="Z" color="red" value="Z" />
-                    <Picker.Item label="G" color="red"value="G" />
-                </Picker>
-                    
-                );
-        };
-
-        return (
-            <>
-                <Text>{name}</Text>
-                {renderField(name)}
-                {this.renderError(meta)}
-            </>
-        );
-    }
-
-    
-
     handlePress = (formValues) => {
-        this.props.checkTickets(formValues);
-        this.props.redirectTrue();
+        this.props.addVehicle(formValues);
+       // this.props.navigation.navigate('List');
     }
   
     render() {
       return (
-          <View>
-            <Text style={styles.whiteText}>Check your speed tickets in Lebanon</Text>
+        <ImageBackground source={require('../../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
+          <View style={styles.carFormBackground}>
+          <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.navigation.navigate('List')}>
+              <Image
+                  source={require('../../img/slicing/X-close-overlay.png')}
+                  style={{ height: 25, width: 25 }}
+                />
+            </TouchableHighlight>
+            <Text style={styles.whiteText}>Add a new car to your list</Text>
             <Field name="vehicle_number" component={this.renderInput} placeholder="Enter your car number" />
             <Field name="vehicle_code" component={this.renderInput} placeholder="Choose your plate code" />
+            <Field name="vehicle_name" component={this.renderInput} placeholder="Enter your car name" />
             <Text> </Text>
             <TouchableHighlight onPress={this.props.handleSubmit(this.handlePress)} style={styles.btn}>
-              <Text style={styles.btnText}>Check Ticket</Text>  
+              <Text style={styles.btnText}>Add to list</Text>  
             </TouchableHighlight>
           </View>
+        </ImageBackground>
       );
     }
 
@@ -99,22 +74,17 @@ const validate = formValues => {
       errors.vehicle_code = 'Must enter a vehicle_code';
     }
 
-    if(!formValues.salt) {
-      errors.salt = 'Must enter a salt';
+    if(!formValues.vehicle_name) {
+      errors.vehicle_name = 'Must enter a vehicle_name';
     } 
-  
-  
-    if (!formValues.token) {
-      errors.token = 'Must enter a token';
-    }
     
     return errors;
 };
 
 
-const CheckTicketsForm = connect(null, { checkTickets, redirectTrue })(Form);
+const AddCarForm = connect(null, { addVehicle, redirectTrue })(Form);
   
 export default reduxForm({
-    form: 'CheckTicketsForm',
+    form: 'AddCarForm',
     validate
-})(CheckTicketsForm);
+})(AddCarForm);

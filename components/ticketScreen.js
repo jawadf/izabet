@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestAccount } from '../actions';
 import RequestAccountForm from './forms/RequestAccountForm';
 import CheckTicketsForm from './forms/CheckTicketsForm';
+import TicketNotfoundScreen from './ticketNotfoundScreen';
 import styles from './style/styles';
 import { 
     View,
@@ -26,8 +26,8 @@ class TicketScreen extends React.Component {
           source={require('../img/slicing/speed-ticket-btn.png')}
           style={[styles.icon, { tintColor: 'red' } ]}
         />
-      )
-    };
+      ) 
+    }; 
 
     renderResult() {
         if(this.props.test){
@@ -36,45 +36,51 @@ class TicketScreen extends React.Component {
            return JSON.stringify(this.props.test);
         }
     }
-  
-    render() {
-      return (
-       <ImageBackground source={require('../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
+
+    componentToRender() {
+      if(this.props.shouldRedirect === false) {
+        return (
         <SafeAreaView style={styles.container}>
           <TouchableHighlight style={styles.headerIcon} onPress={() =>this.props.navigation.toggleDrawer()}>
             <Image
                 source={require('../img/slicing/menu-button.png')}
                 style={{ height: 25, width: 25 }}
               />
-           </TouchableHighlight>
+          </TouchableHighlight>       
           <ScrollView>
-              <Image
+            <Image
               source={require('../img/slicing/logo-homepage.png')}
               style={{ height: 55, width: 200 }}
             />
-            <Text>{ this.renderResult() } </Text>
-            <Text> </Text>
-            <Text style={styles.whiteText}>Check your speed tickets in Lebanon</Text>
             <CheckTicketsForm />
-             
-            {/* 
-            <RequestAccountForm />
-               */}
           </ScrollView>
         </SafeAreaView>
+       );
+      } else if (this.props.shouldRedirect === true) {
+        return (
+               <TicketNotfoundScreen />
+        ) ;
+      }
+    }
+  
+    render() {
+      return (
+       <ImageBackground source={require('../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
+        <Text>{ this.renderResult() } </Text> 
+          {this.componentToRender()}
        </ImageBackground>
       );
     }
 }
 
 
-
-
 const mapStateToProps = state => {
     return {
          test: state.test.result,
+         shouldRedirect: state.redirect.shouldRedirect
     };
 };
 
-export default connect(mapStateToProps, { requestAccount })(TicketScreen);
+
+export default connect(mapStateToProps)(TicketScreen);
 

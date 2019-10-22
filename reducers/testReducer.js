@@ -7,7 +7,9 @@ export default (state = { result: null}, action) => {
             return {...state, result : action.payload };
         case 'CHECK_TICKETS':
             return {...state, result : action.payload };
-        default:
-            return state;
+        case 'ADD_VEHICLE':
+            return {...state, result : action.payload };
+        default: 
+            return state; 
     }
 }

@@ -1,5 +1,34 @@
 import axios from '../axios/axios';
 import { withNavigation } from 'react-navigation';
+  
+
+/********    REDIRECT ACTIONS     ********/
+
+export const redirectTrue = () => {
+  return {
+    type: 'REDIRECT_TRUE'
+  };
+}
+
+export const redirectFalse = () => {
+  return {
+    type: 'REDIRECT_FALSE'
+  };
+}
+
+
+/*
+export const signIn = (userId, userName) => {
+  return {
+    type: SIGN_IN,
+    payload: [userId, userName]
+  };
+}; 
+
+/****************************************/
+
+
+
 
 // REQUEST ACCOUNT
 export const requestAccount = formValues => async dispatch => {
@@ -21,11 +50,20 @@ export const updateToken = formValues => async dispatch => {
 
 // ADD VEHICLE
 export const addVehicle = formValues => async dispatch => {
-  const response = await axios.get(`?tab=addVehicle&device_id=${formValues.device_id}&type=${formValues.type}&salt=${formValues.salt}&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}`).catch(error => {
+  const response = await axios.get(`?tab=addVehicle&device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}&vehicle_name=${formValues.vehicle_name}`).catch(error => {
     return error.toString();
   });
 
   dispatch({ type: 'ADD_VEHICLE', payload: response.data });
+};
+
+// GET ALL VEHICLES OF THE USER
+export const getUserVehicles = () => async dispatch => {
+  const response = await axios.get(`?tab=getUserVehicles&device_id=123456&type=2&salt=1`).catch(error => {
+    return error.toString();
+  });
+
+  dispatch({ type: 'GET_USER_VEHICLES', payload: response.data });
 };
 
 // DELETE VEHICLE

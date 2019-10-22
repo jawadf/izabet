@@ -12,11 +12,11 @@ export default StyleSheet.create({
         textInput: { 
             height: 40,
             width: '100%',
+            color: 'white',
             borderRadius: 2,
             borderRightColor: 'white',
             borderRightWidth: 3,
             backgroundColor: 'rgba(0, 0, 0, 0.267)',
-           
         },
 
         whiteText: {
@@ -49,6 +49,12 @@ export default StyleSheet.create({
             textAlign: 'center',
             fontWeight: '400'
             //padding: 'auto 0'
+        },
+
+        carFormBackground: {
+            width: '100%',
+            height: '100%',
+            backgroundColor: '#037cb8be'
         }
 
     });

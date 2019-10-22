@@ -13,6 +13,7 @@ import TicketScreen from './components/ticketScreen';
 import ListScreen from './components/listScreen';
 import InfoScreen from './components/infoScreen';
 import ProfileScreen from './components/profileScreen';
+import AddCarForm from './components/forms/AddCarForm';
 
 import reducers from './reducers';
 
@@ -31,6 +32,9 @@ const MyDrawerNavigator = createDrawerNavigator(
     },
     Profile: {
       screen: ProfileScreen,
+    },
+    AddCarForm: {
+      screen: AddCarForm,
     },
   },
   {

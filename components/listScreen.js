@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestAccount } from '../actions';
+import { getUserVehicles } from '../actions';
+import styles from './style/styles';
 import { 
     View,
     Text,
+    SafeAreaView,
+    ScrollView,
+    TouchableHighlight,
+    Image,
     Button,
-    StyleSheet,
-    Image
+    ImageBackground
 } from 'react-native';
 
 class ListScreen extends React.Component {
@@ -21,24 +25,52 @@ class ListScreen extends React.Component {
         )
     };
 
+    componentDidMount() {
+      // Call action creator to fetch all vehicles for this "device_id" and "type" 
+      // the result should be json that has the name and number
+      // render their values on the screen 
+      this.props.getUserVehicles();
+
+    }
+
+    handlePress() {
+
+    }
+
+    renderResult() {
+
+    }
+  
     render() {
-        return (
-            <View style={{ flex: 1 }}>
-                <Text>List Screen</Text>
-                <Button
-                    onPress={() =>this.props.navigation.toggleDrawer()}
-                    title="Open Drawer"
-                />
-            </View>
-        );
+      return (
+       <ImageBackground source={require('../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
+        <SafeAreaView style={styles.container}>
+          <TouchableHighlight style={styles.headerIcon} onPress={() =>this.props.navigation.toggleDrawer()}>
+            <Image
+                source={require('../img/slicing/menu-button.png')}
+                style={{ height: 25, width: 25 }}
+              />
+          </TouchableHighlight>       
+          <ScrollView>
+            <Image
+              source={require('../img/slicing/logo-homepage.png')}
+              style={{ height: 55, width: 200 }}
+            />
+            <TouchableHighlight style={styles.btn} onPress={() => this.props.navigation.navigate('AddCarForm')}>
+                <Text style={styles.btnText}>Add new car number</Text>  
+            </TouchableHighlight>
+          </ScrollView>
+        </SafeAreaView>
+       </ImageBackground>
+      );
     }
 }
 
-const styles = StyleSheet.create({
-    icon: {
-      width: 24,
-      height: 24,
-    },
-});  
+const mapStateToProps = state => {
+    return {
+         test: state.test.result
+    };
+};
 
-export default connect(null, { requestAccount })(ListScreen);
+
+export default connect(mapStateToProps, { getUserVehicles })(ListScreen);
