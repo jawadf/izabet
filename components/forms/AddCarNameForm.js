@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { addVehicle, redirectTrue } from '../../actions';
+import { addVehicleName, redirectFalse} from '../../actions';
 import styles from '../style/styles';
 import { 
     Text,
@@ -35,8 +35,9 @@ class Form extends React.Component {
     }
 
     handlePress = (formValues) => {
-      this.props.addVehicle(formValues);
-      this.props.navigation.navigate('List');
+        this.props.addVehicleName(formValues, this.props.currentNumber, this.props.currentCode);
+        this.props.redirectFalse();
+
     }
   
     render() {
@@ -50,8 +51,6 @@ class Form extends React.Component {
                 />
             </TouchableHighlight>
             <Text style={styles.whiteText}>Add a new car to your list</Text>
-            <Field name="vehicle_number" component={this.renderInput} placeholder="Enter your car number" />
-            <Field name="vehicle_code" component={this.renderInput} placeholder="Choose your plate code" />
             <Field name="vehicle_name" component={this.renderInput} placeholder="Enter your car name" />
             <Text> </Text>
             <TouchableHighlight onPress={this.props.handleSubmit(this.handlePress)} style={styles.btn}>
@@ -66,13 +65,6 @@ class Form extends React.Component {
 
 const validate = formValues => {
     const errors = {};
-    if(!formValues.vehicle_number) {
-      errors.vehicle_number = 'Must enter a vehicle_number';
-    }
-  
-    if (!formValues.vehicle_code) {
-      errors.vehicle_code = 'Must enter a vehicle_code';
-    }
 
     if(!formValues.vehicle_name) {
       errors.vehicle_name = 'Must enter a vehicle_name';
@@ -82,9 +74,9 @@ const validate = formValues => {
 };
 
 
-const AddCarForm = connect(null, { addVehicle, redirectTrue })(Form);
+const AddCarForm = connect(null, { addVehicleName, redirectFalse })(Form);
   
 export default reduxForm({
-    form: 'AddCarForm',
+    form: 'AddCarNameForm',
     validate
 })(AddCarForm);

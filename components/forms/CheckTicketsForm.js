@@ -104,7 +104,7 @@ const validate = formValues => {
     } 
   
   
-    if (!formValues.token) {
+    if (!formValues.token) { 
       errors.token = 'Must enter a token';
     }
     

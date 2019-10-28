@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import RequestAccountForm from './forms/RequestAccountForm';
 import CheckTicketsForm from './forms/CheckTicketsForm';
 import TicketNotfoundScreen from './ticketNotfoundScreen';
+import TicketFoundScreen from './ticketFoundScreen';
 import styles from './style/styles';
 import { 
     View,
@@ -27,15 +28,15 @@ class TicketScreen extends React.Component {
           style={[styles.icon, { tintColor: 'red' } ]}
         />
       ) 
-    }; 
+    };
 
-    renderResult() {
-        if(this.props.test){
-            console.log(this.props.test)
+    // renderResult() {
+    //     if(this.props.test){
+    //         console.log(this.props.test.tickets)
            
-           return JSON.stringify(this.props.test);
-        }
-    }
+    //        return JSON.stringify(this.props.test);
+    //     }
+    // }
 
     componentToRender() {
       if(this.props.shouldRedirect === false) {
@@ -57,17 +58,28 @@ class TicketScreen extends React.Component {
         </SafeAreaView>
        );
       } else if (this.props.shouldRedirect === true) {
-        return (
-               <TicketNotfoundScreen />
-        ) ;
+        if(this.props.test) {
+
+          if(this.props.test.tickets === 0) {
+            return (
+              <TicketNotfoundScreen navigation={this.props.navigation} />
+            ) ;
+          } else if(this.props.test.tickets !== 0) {
+            return (
+                <TicketFoundScreen navigation={this.props.navigation} />
+              );
+          }
+
+        } else {
+          return <></>;
+        }
       }
     }
   
     render() {
       return (
        <ImageBackground source={require('../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
-        <Text>{ this.renderResult() } </Text> 
-          {this.componentToRender()}
+          { this.componentToRender() }
        </ImageBackground>
       );
     }

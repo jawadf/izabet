@@ -33,34 +33,42 @@ class ListScreen extends React.Component {
 
     }
 
-    handlePress() {
-
-    }
-
+    
     renderResult() {
+
+      if(this.props.vehicles){
+        console.log(this.props.vehicles)
+       
+       return this.props.vehicles.map(e => (
+         <View key={e.vehicle_id} style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 5, borderBottomColor: 'white', borderBottomWidth: 2, marginBottom: 25  }} >
+          <Text style={{fontSize: 18, color: 'white' }}>{e.vehicle_name}</Text>
+          <Text style={{fontSize: 18, color: 'white' }}>{e.vehicle_id}</Text>
+          <Text style={{fontSize: 18, color: 'white' }}>{e.vehicle_code}</Text>
+         </View>
+       ));
+    }
 
     }
   
     render() {
       return (
        <ImageBackground source={require('../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={{ width: '90%', marginLeft: 'auto', marginRight: 'auto', display: 'flex'}} >
           <TouchableHighlight style={styles.headerIcon} onPress={() =>this.props.navigation.toggleDrawer()}>
             <Image
                 source={require('../img/slicing/menu-button.png')}
                 style={{ height: 25, width: 25 }}
-              />
+            />
           </TouchableHighlight>       
           <ScrollView>
-            <Image
-              source={require('../img/slicing/logo-homepage.png')}
-              style={{ height: 55, width: 200 }}
-            />
-            <TouchableHighlight style={styles.btn} onPress={() => this.props.navigation.navigate('AddCarForm')}>
-                <Text style={styles.btnText}>Add new car number</Text>  
-            </TouchableHighlight>
+          { this.renderResult() } 
+            
           </ScrollView>
         </SafeAreaView>
+        <TouchableHighlight style={styles.btn} onPress={() => this.props.navigation.navigate('AddCarForm')}>
+            <Text style={styles.btnText}>Add new car number</Text>  
+        </TouchableHighlight>
+
        </ImageBackground>
       );
     }
@@ -68,7 +76,7 @@ class ListScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
-         test: state.test.result
+         vehicles: Object.values(state.vehicles)
     };
 };
 

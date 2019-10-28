@@ -2,20 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { redirectFalse } from '../actions';
 import styles from './style/styles';
+import AddCarNameForm from './forms/AddCarNameForm';
 import { 
     View,
     Text,
-    SafeAreaView,
+    SafeAreaView, 
     ScrollView,
     TouchableHighlight,
     Image,
 } from 'react-native';
 
 class TicketNotfoundScreen extends React.Component {
-  
-    render() {
-      return (
-        <SafeAreaView style={styles.container}>
+    state = {
+      buttonPressed: false
+    }
+
+    componentToRender() {
+      if(!this.state.buttonPressed) {
+        return (
           <ScrollView>
             <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.redirectFalse()}>
               <Image
@@ -23,18 +27,41 @@ class TicketNotfoundScreen extends React.Component {
                   style={{ height: 25, width: 25 }}
                 />
             </TouchableHighlight>  
-            <Text style={styles.whiteText}>Vehicle number: NUM_TO_REPLACE </Text>
-            <Text style={styles.whiteText}>No Violation Found</Text>
-            <Text style={styles.whiteText}>Click on the button below to add this car to 'My list' where you receive a notification in case of any violation ticket.</Text>
-            <TouchableHighlight style={styles.btn}>
-                <Text style={styles.btnText}>Add to list</Text>  
+            <Text style={styles.ticketHeadingText} >Vehicle number</Text>
+            <Text style={styles.ticketHeadingNumber}>{this.props.tickets.currentVehicle[0].vehicle_number } / {this.props.tickets.currentVehicle[0].vehicle_code }</Text>
+            <Text style={styles.ticketNoViolationText}>No Violation Found</Text>
+            <View style={styles.ticketHorizontalRule} />
+            <View style={styles.ticketBottomView}>
+            <Text style={styles.ticketBottomText}>Click on the button below to add this car to 'My list' where you receive a notification in case of any violation ticket.</Text>
+            <TouchableHighlight style={styles.btn} onPress={() => this.setState({ buttonPressed: true })} >
+                <Text style={styles.btnText}>Add car to list</Text>  
             </TouchableHighlight>
+            </View>
           </ScrollView>
+        );
+      } else if (this.state.buttonPressed) {
+        const currentNumber = this.props.tickets.currentVehicle[0].vehicle_number;
+        const currentCode = this.props.tickets.currentVehicle[0].vehicle_code;
+        return <AddCarNameForm currentNumber={currentNumber} currentCode={currentCode}  />;
+      }
+      
+    }
+  
+    render() {
+      return (
+        <SafeAreaView style={styles.container}>
+          {this.componentToRender()}
         </SafeAreaView>
        
       );
     }
 }
 
-export default connect(null,{ redirectFalse })(TicketNotfoundScreen);
+const mapStateToProps = state => {
+  return {
+    tickets: state.test.result
+  };
+};
+
+export default connect(mapStateToProps ,{ redirectFalse })(TicketNotfoundScreen);
 

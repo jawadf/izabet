@@ -14,6 +14,8 @@ import ListScreen from './components/listScreen';
 import InfoScreen from './components/infoScreen';
 import ProfileScreen from './components/profileScreen';
 import AddCarForm from './components/forms/AddCarForm';
+import ticketNotfoundScreen from './components/ticketNotfoundScreen';
+import ticketFoundScreen from './components/ticketFoundScreen';
 
 import reducers from './reducers';
 
@@ -30,12 +32,15 @@ const MyDrawerNavigator = createDrawerNavigator(
     Info: {
       screen: InfoScreen,
     },
-    Profile: {
-      screen: ProfileScreen,
-    },
     AddCarForm: {
       screen: AddCarForm,
     },
+    // ticketNotfoundScreen: {
+    //   screen: ticketNotfoundScreen,
+    // },
+    // ticketFoundScreen: {
+    //   screen: ticketFoundScreen,
+    // },
   },
   {
     initialRouteName: 'Ticket',

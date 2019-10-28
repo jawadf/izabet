@@ -28,8 +28,6 @@ export const signIn = (userId, userName) => {
 /****************************************/
 
 
-
-
 // REQUEST ACCOUNT
 export const requestAccount = formValues => async dispatch => {
   const response = await axios.get(`?tab=requestAccount&device_id=${formValues.device_id}&type=${formValues.type}`).catch(error => {
@@ -57,6 +55,15 @@ export const addVehicle = formValues => async dispatch => {
   dispatch({ type: 'ADD_VEHICLE', payload: response.data });
 };
 
+// ADD VEHICLE NAME (same as add vehicle, but the number and code are already given by the user in checkTickets)
+export const addVehicleName = (formValues, currentNumber, currentCode) => async dispatch => {
+  const response = await axios.get(`?tab=addVehicle&device_id=123456&type=2&salt=1&vehicle_number=${currentNumber}&vehicle_code=${currentCode}&vehicle_name=${formValues.vehicle_name}`).catch(error => {
+    return error.toString();
+  });
+
+  dispatch({ type: 'ADD_VEHICLE', payload: response.data });
+};
+
 // GET ALL VEHICLES OF THE USER
 export const getUserVehicles = () => async dispatch => {
   const response = await axios.get(`?tab=getUserVehicles&device_id=123456&type=2&salt=1`).catch(error => {
@@ -75,15 +82,24 @@ export const deleteVehicle = formValues => async dispatch => {
   dispatch({ type: 'DELETE_VEHICLE', payload: response.data });
 };
 
-
 // CHECK TICKETS
 export const checkTickets = formValues => async dispatch => {
-  const response = await axios.get(`?tab=checkTickets&device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}`).catch(error => {
+  const response = await axios.get(`?tab=checkViolations&device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}`).catch(error => {
     return error.toString();
   });
 
   dispatch({ type: 'CHECK_TICKETS', payload: response.data });
 };
+
+
+// CHECK TICKETS (LEGACY)
+// export const checkTickets = formValues => async dispatch => {
+//   const response = await axios.get(`?tab=checkTickets&device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}`).catch(error => {
+//     return error.toString();
+//   });
+
+//   dispatch({ type: 'CHECK_TICKETS', payload: response.data });
+// };
 
 // ALL TICKETS
 // export const checkAllTickets = formValues => async dispatch => {
