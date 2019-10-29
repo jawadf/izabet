@@ -74,8 +74,8 @@ export const getUserVehicles = () => async dispatch => {
 };
 
 // DELETE VEHICLE
-export const deleteVehicle = formValues => async dispatch => {
-  const response = await axios.get(`?tab=deleteVehicle&id=${formValues.id}&device_id=${formValues.device_id}&type=${formValues.type}&salt=${formValues.salt}`).catch(error => {
+export const deleteVehicle = id => async dispatch => {
+  const response = await axios.get(`?tab=deleteVehicle&device_id=123456&type=2&salt=1&id=${id}`).catch(error => {
     return error.toString();
   });
 

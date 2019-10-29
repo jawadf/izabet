@@ -36,14 +36,14 @@ class Form extends React.Component {
 
     handlePress = (formValues) => {
       this.props.addVehicle(formValues);
-      this.props.navigation.navigate('List');
+      this.props.onButtonPress();
     }
-  
+   
     render() {
       return (
         <ImageBackground source={require('../../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
           <View style={styles.carFormBackground}>
-          <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.navigation.navigate('List')}>
+            <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.onButtonPress()}>
               <Image
                   source={require('../../img/slicing/X-close-overlay.png')}
                   style={{ height: 25, width: 25 }}

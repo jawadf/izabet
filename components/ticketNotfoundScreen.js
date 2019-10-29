@@ -17,6 +17,10 @@ class TicketNotfoundScreen extends React.Component {
       buttonPressed: false
     }
 
+    componentDidMount() {
+      console.log(this.props.tickets);
+    }
+
     componentToRender() {
       if(!this.state.buttonPressed) {
         return (
@@ -42,7 +46,7 @@ class TicketNotfoundScreen extends React.Component {
       } else if (this.state.buttonPressed) {
         const currentNumber = this.props.tickets.currentVehicle[0].vehicle_number;
         const currentCode = this.props.tickets.currentVehicle[0].vehicle_code;
-        return <AddCarNameForm currentNumber={currentNumber} currentCode={currentCode}  />;
+        return <AddCarNameForm currentNumber={currentNumber} currentCode={currentCode} onButtonPress={() => this.setState({ buttonPressed: false })}   />;
       }
       
     }
@@ -59,7 +63,7 @@ class TicketNotfoundScreen extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    tickets: state.test.result
+    tickets: state.tickets.result
   };
 };
 

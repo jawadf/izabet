@@ -19,35 +19,38 @@ class TicketFoundScreen extends React.Component {
     buttonPressed: false
   }
 
+  componentDidMount() {
+    console.log(this.props.tickets);
+  }
+
   componentToRender() {
     if(!this.state.buttonPressed) {
       return (
         <ScrollView>
-            <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.redirectFalse()}>
-              <Image
-                  source={require('../img/slicing/back-btn.png')}
-                  style={{ height: 25, width: 25 }}
-                />
-            </TouchableHighlight>
-            
-              <Text style={styles.ticketHeadingText} >Vehicle number</Text>
-             <Text style={styles.ticketHeadingNumber}>{this.props.tickets.currentVehicle[0].vehicle_number } / {this.props.tickets.currentVehicle[0].vehicle_code }</Text> 
-              <Table borderStyle={{ borderWidth: 2, borderColor: '#fff'}} style={styles.ticketsTable}>
-                <Row textStyle={{color: 'white', margin: 5}}  data={['Traffic Brigade Of', 'Violation Date']} />
-                <Rows textStyle={{color: 'white', margin: 5}} data={this.renderData()}  />
-              </Table>
-              <View style={styles.ticketBottomView}>
-              <Text style={styles.ticketBottomText}>Click on the button below to add this car to 'My list' where you receive a notification in case of any violation ticket.</Text>
-              <TouchableHighlight style={styles.btn} onPress={() => this.setState({ buttonPressed: true })}>
-                  <Text style={styles.btnText}>Add car to list</Text>  
-              </TouchableHighlight>
-            </View>  
-          </ScrollView>
+          <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.redirectFalse()}>
+          <Image
+              source={require('../img/slicing/back-btn.png')}
+               style={{ height: 25, width: 25 }}
+          />
+          </TouchableHighlight>
+          <Text style={styles.ticketHeadingText} >Vehicle number</Text>
+          <Text style={styles.ticketHeadingNumber}>{this.props.tickets.currentVehicle[0].vehicle_number } / {this.props.tickets.currentVehicle[0].vehicle_code }</Text> 
+          <Table borderStyle={{ borderWidth: 2, borderColor: '#fff'}} style={styles.ticketsTable}>
+            <Row textStyle={{color: 'white', margin: 5}}  data={['Traffic Brigade Of', 'Violation Date']} />
+            <Rows textStyle={{color: 'white', margin: 5}} data={this.renderData()}  />
+          </Table>
+          <View style={styles.ticketBottomView}>
+          <Text style={styles.ticketBottomText}>Click on the button below to add this car to 'My list' where you receive a notification in case of any violation ticket.</Text>
+          <TouchableHighlight style={styles.btn} onPress={() => this.setState({ buttonPressed: true })}>
+            <Text style={styles.btnText}>Add car to list</Text>  
+          </TouchableHighlight>
+          </View>  
+        </ScrollView>
       ); 
     } else if (this.state.buttonPressed) {
       const currentNumber = this.props.tickets.currentVehicle[0].vehicle_number;
       const currentCode = this.props.tickets.currentVehicle[0].vehicle_code;
-      return <AddCarNameForm currentNumber={currentNumber} currentCode={currentCode}  />;
+      return <AddCarNameForm currentNumber={currentNumber} currentCode={currentCode} onButtonPress={() => this.setState({ buttonPressed: false })}  />;
     }
   }
 
@@ -74,7 +77,7 @@ class TicketFoundScreen extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    tickets: state.test.result
+    tickets: state.tickets.result
   };
 };
 

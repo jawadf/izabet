@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import testReducer from './testReducer';
+import ticketReducer from './ticketReducer';
+import addVehicleReducer from './addVehicleReducer';
 import vehiclesReducer from './vehiclesReducer';
 import redirectReducer from './redirectReducer';
 
 export default combineReducers({
-    test: testReducer,
+    tickets: ticketReducer,
+    addVehicle: addVehicleReducer,
     redirect: redirectReducer,
     vehicles: vehiclesReducer,
     form: formReducer

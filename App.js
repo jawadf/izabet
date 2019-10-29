@@ -31,16 +31,7 @@ const MyDrawerNavigator = createDrawerNavigator(
     },
     Info: {
       screen: InfoScreen,
-    },
-    AddCarForm: {
-      screen: AddCarForm,
-    },
-    // ticketNotfoundScreen: {
-    //   screen: ticketNotfoundScreen,
-    // },
-    // ticketFoundScreen: {
-    //   screen: ticketFoundScreen,
-    // },
+    }
   },
   {
     initialRouteName: 'Ticket',

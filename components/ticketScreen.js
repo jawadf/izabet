@@ -31,10 +31,10 @@ class TicketScreen extends React.Component {
     };
 
     // renderResult() {
-    //     if(this.props.test){
-    //         console.log(this.props.test.tickets)
+    //     if(this.props.tickets){
+    //         console.log(this.props.tickets.tickets)
            
-    //        return JSON.stringify(this.props.test);
+    //        return JSON.stringify(this.props.tickets);
     //     }
     // }
 
@@ -58,13 +58,13 @@ class TicketScreen extends React.Component {
         </SafeAreaView>
        );
       } else if (this.props.shouldRedirect === true) {
-        if(this.props.test) {
+        if(this.props.tickets) {
 
-          if(this.props.test.tickets === 0) {
+          if(this.props.tickets.tickets === 0) {
             return (
               <TicketNotfoundScreen navigation={this.props.navigation} />
             ) ;
-          } else if(this.props.test.tickets !== 0) {
+          } else if(this.props.tickets.tickets !== 0) {
             return (
                 <TicketFoundScreen navigation={this.props.navigation} />
               );
@@ -88,7 +88,7 @@ class TicketScreen extends React.Component {
 
 const mapStateToProps = state => {
     return {
-         test: state.test.result,
+         tickets: state.tickets.result,
          shouldRedirect: state.redirect.shouldRedirect
     };
 };

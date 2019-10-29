@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { addVehicleName, redirectFalse} from '../../actions';
+import { addVehicleName } from '../../actions';
 import styles from '../style/styles';
 import { 
     Text,
@@ -36,7 +36,7 @@ class Form extends React.Component {
 
     handlePress = (formValues) => {
         this.props.addVehicleName(formValues, this.props.currentNumber, this.props.currentCode);
-        this.props.redirectFalse();
+        this.props.onButtonPress();
 
     }
   
@@ -44,7 +44,7 @@ class Form extends React.Component {
       return (
         <ImageBackground source={require('../../img/slicing/background.jpg')} style={{width: '100%', height: '100%'}}>
           <View style={styles.carFormBackground}>
-          <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.navigation.navigate('List')}>
+          <TouchableHighlight style={styles.headerIcon} onPress={() => this.props.onButtonPress()}>
               <Image
                   source={require('../../img/slicing/X-close-overlay.png')}
                   style={{ height: 25, width: 25 }}
@@ -74,7 +74,7 @@ const validate = formValues => {
 };
 
 
-const AddCarForm = connect(null, { addVehicleName, redirectFalse })(Form);
+const AddCarForm = connect(null, { addVehicleName })(Form);
   
 export default reduxForm({
     form: 'AddCarNameForm',
