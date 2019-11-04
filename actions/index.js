@@ -1,5 +1,4 @@
 import axios from '../axios/axios';
-import { withNavigation } from 'react-navigation';
   
 
 /********    REDIRECT ACTIONS     ********/
@@ -48,7 +47,7 @@ export const updateToken = formValues => async dispatch => {
 
 // ADD VEHICLE
 export const addVehicle = formValues => async dispatch => {
-  const response = await axios.get(`?tab=addVehicle&device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}&vehicle_name=${formValues.vehicle_name}`).catch(error => {
+  const response = await axios.post(`/vehicles?device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}&vehicle_name=${formValues.vehicle_name}`).catch(error => {
     return error.toString();
   });
 
@@ -57,7 +56,7 @@ export const addVehicle = formValues => async dispatch => {
 
 // ADD VEHICLE NAME (same as add vehicle, but the number and code are already given by the user in checkTickets)
 export const addVehicleName = (formValues, currentNumber, currentCode) => async dispatch => {
-  const response = await axios.get(`?tab=addVehicle&device_id=123456&type=2&salt=1&vehicle_number=${currentNumber}&vehicle_code=${currentCode}&vehicle_name=${formValues.vehicle_name}`).catch(error => {
+  const response = await axios.post(`/vehicles?device_id=123456&type=2&salt=1&vehicle_number=${currentNumber}&vehicle_code=${currentCode}&vehicle_name=${formValues.vehicle_name}`).catch(error => {
     return error.toString();
   });
 
@@ -66,7 +65,7 @@ export const addVehicleName = (formValues, currentNumber, currentCode) => async 
 
 // GET ALL VEHICLES OF THE USER
 export const getUserVehicles = () => async dispatch => {
-  const response = await axios.get(`?tab=getUserVehicles&device_id=123456&type=2&salt=1`).catch(error => {
+  const response = await axios.get(`/vehicles?device_id=123456&type=2&salt=1`).catch(error => {
     return error.toString();
   });
 
@@ -75,7 +74,7 @@ export const getUserVehicles = () => async dispatch => {
 
 // DELETE VEHICLE
 export const deleteVehicle = id => async dispatch => {
-  const response = await axios.get(`?tab=deleteVehicle&device_id=123456&type=2&salt=1&id=${id}`).catch(error => {
+  const response = await axios.delete(`/vehicles?device_id=123456&type=2&salt=1&id=${id}`).catch(error => {
     return error.toString();
   });
 
@@ -84,7 +83,7 @@ export const deleteVehicle = id => async dispatch => {
 
 // CHECK TICKETS
 export const checkTickets = formValues => async dispatch => {
-  const response = await axios.get(`?tab=checkViolations&device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}`).catch(error => {
+  const response = await axios.get(`/tickets?device_id=123456&type=2&salt=1&vehicle_number=${formValues.vehicle_number}&vehicle_code=${formValues.vehicle_code}`).catch(error => {
     return error.toString();
   });
 

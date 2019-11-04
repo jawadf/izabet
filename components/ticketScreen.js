@@ -37,7 +37,7 @@ class TicketScreen extends React.Component {
     //        return JSON.stringify(this.props.tickets);
     //     }
     // }
-
+ 
     componentToRender() {
       if(this.props.shouldRedirect === false) {
         return (
@@ -60,11 +60,11 @@ class TicketScreen extends React.Component {
       } else if (this.props.shouldRedirect === true) {
         if(this.props.tickets) {
 
-          if(this.props.tickets.tickets === 0) {
+          if(this.props.tickets.tickets == 0) {
             return (
               <TicketNotfoundScreen navigation={this.props.navigation} />
             ) ;
-          } else if(this.props.tickets.tickets !== 0) {
+          } else if(this.props.tickets.tickets != 0) {
             return (
                 <TicketFoundScreen navigation={this.props.navigation} />
               );

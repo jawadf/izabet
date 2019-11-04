@@ -22,7 +22,7 @@ class Form extends React.Component {
 
     renderInput = ({input, name, meta, placeholder}) => {
         const renderField = (name) => {
-                return <TextInput  {...input} placeholderTextColor={'#fff'}  autoComplete="off" className={name} style={styles.textInput} placeholder={placeholder} />;
+            return <TextInput  {...input} placeholderTextColor={'#fff'}  autoComplete="off" className={name} style={styles.textInput} placeholder={placeholder} />;
         };
 
         return (

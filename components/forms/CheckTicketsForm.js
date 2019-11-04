@@ -55,7 +55,7 @@ class Form extends React.Component {
                 </Picker>
                     
                 );
-        };
+        }; 
 
         return (
             <>
