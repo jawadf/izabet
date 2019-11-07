@@ -56,7 +56,7 @@ class ListScreen extends React.Component {
             </TouchableHighlight>       
             <ScrollView>
             { this.renderResult() } 
-            </ScrollView> 
+            </ScrollView>
           </SafeAreaView>
           <TouchableHighlight style={styles.btn} onPress={() => this.setState({ buttonPressed: true })}>
             <Text style={styles.btnText}>Add new car number</Text>  
@@ -70,7 +70,6 @@ class ListScreen extends React.Component {
     
     renderResult() {
       if(this.props.vehicles){
-        
        return this.props.vehicles.map(e => (
          <View key={e.vehicle_id} style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 5, borderBottomColor: 'white', borderBottomWidth: 2, marginBottom: 25  }} >
           <Text style={{fontSize: 18, color: 'white' }}>{e.vehicle_name}</Text>

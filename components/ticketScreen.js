@@ -29,14 +29,6 @@ class TicketScreen extends React.Component {
         />
       ) 
     };
-
-    // renderResult() {
-    //     if(this.props.tickets){
-    //         console.log(this.props.tickets.tickets)
-           
-    //        return JSON.stringify(this.props.tickets);
-    //     }
-    // }
  
     componentToRender() {
       if(this.props.shouldRedirect === false) {

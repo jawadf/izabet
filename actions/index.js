@@ -1,7 +1,7 @@
 import axios from '../axios/axios';
   
 
-/********    REDIRECT ACTIONS     ********/
+/********   REDIRECT ACTIONS     ********/
 
 export const redirectTrue = () => {
   return {
@@ -15,16 +15,27 @@ export const redirectFalse = () => {
   };
 }
 
+/********    LOGIN & LOGOUT     ********/
 
-/*
-export const signIn = (userId, userName) => {
+
+// ADD VEHICLE
+export const loginAction = formValues => async dispatch => {
+  const response = await axios.get(`/login?email=${formValues.email}&password=${formValues.password}`).catch(error => {
+    return error.toString();
+  });
+
+  dispatch({ type: 'LOGIN', payload: response.data });
+};
+
+export const logoutAction = () => {
+
   return {
-    type: SIGN_IN,
-    payload: [userId, userName]
-  };
-}; 
+    type: 'LOGOUT'
+  }
+}
 
-/****************************************/
+
+/********    MAIN ACTIONS     ********/
 
 
 // REQUEST ACCOUNT

@@ -4,11 +4,13 @@ import ticketReducer from './ticketReducer';
 import addVehicleReducer from './addVehicleReducer';
 import vehiclesReducer from './vehiclesReducer';
 import redirectReducer from './redirectReducer';
+import userReducer from './userReducer';
 
 export default combineReducers({
     tickets: ticketReducer,
     addVehicle: addVehicleReducer,
     redirect: redirectReducer,
     vehicles: vehiclesReducer,
-    form: formReducer
+    form: formReducer,
+    user: userReducer
 });

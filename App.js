@@ -31,6 +31,9 @@ const MyDrawerNavigator = createDrawerNavigator(
     },
     Info: {
       screen: InfoScreen,
+    },
+    Profile: {
+      screen: ProfileScreen,
     }
   },
   {
