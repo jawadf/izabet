@@ -5,6 +5,8 @@ export default (state = { shouldRedirect: false }, action) => {
             return {...state, shouldRedirect : false };
         case 'REDIRECT_TRUE':
             return {...state, shouldRedirect : true };
+        case 'REFRESH':
+            return {...state, shouldRedirect : !state.shouldRedirect };
         default:
             return state;
     }

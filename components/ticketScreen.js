@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import RequestAccountForm from './forms/RequestAccountForm';
 import CheckTicketsForm from './forms/CheckTicketsForm';
 import TicketNotfoundScreen from './ticketNotfoundScreen';
 import TicketFoundScreen from './ticketFoundScreen';
 import styles from './style/styles';
 import { 
-    View,
+    View, 
     Text,
     StyleSheet,
     SafeAreaView,
@@ -27,44 +26,63 @@ class TicketScreen extends React.Component {
           source={require('../img/slicing/speed-ticket-btn.png')}
           style={[styles.icon, { tintColor: 'red' } ]}
         />
-      ) 
+      )
     };
- 
+    
+    /** 
+     * Render according to Login status
+     * 
+     */
     componentToRender() {
-      if(this.props.shouldRedirect === false) {
-        return (
-        <SafeAreaView style={styles.container}>
-          <TouchableHighlight style={styles.headerIcon} onPress={() =>this.props.navigation.toggleDrawer()}>
-            <Image
-                source={require('../img/slicing/menu-button.png')}
-                style={{ height: 25, width: 25 }}
+
+      if(this.props.user) {
+        if(this.props.shouldRedirect === false) {
+          return (
+          <SafeAreaView style={styles.container}>
+            <TouchableHighlight style={styles.headerIcon} onPress={() =>this.props.navigation.toggleDrawer()}>
+              <Image
+                  source={require('../img/slicing/menu-button.png')}
+                  style={{ height: 25, width: 25 }}
+                />
+            </TouchableHighlight>       
+            <ScrollView>
+              <Image
+                source={require('../img/slicing/logo-homepage.png')}
+                style={{ height: 55, width: 200 }}
               />
-          </TouchableHighlight>       
-          <ScrollView>
-            <Image
-              source={require('../img/slicing/logo-homepage.png')}
-              style={{ height: 55, width: 200 }}
-            />
-            <CheckTicketsForm />
-          </ScrollView>
-        </SafeAreaView>
-       );
-      } else if (this.props.shouldRedirect === true) {
-        if(this.props.tickets) {
+              <CheckTicketsForm />
+            </ScrollView>
+          </SafeAreaView>
+        );
+        } else if (this.props.shouldRedirect === true) {
+          if(this.props.tickets) {
 
-          if(this.props.tickets.tickets == 0) {
-            return (
-              <TicketNotfoundScreen navigation={this.props.navigation} />
-            ) ;
-          } else if(this.props.tickets.tickets != 0) {
-            return (
-                <TicketFoundScreen navigation={this.props.navigation} />
-              );
+            if(this.props.tickets.tickets == 0) {
+              return (
+                <TicketNotfoundScreen navigation={this.props.navigation} />
+              ) ;
+            } else if(this.props.tickets.tickets != 0) {
+              return (
+                  <TicketFoundScreen navigation={this.props.navigation} />
+                );
+            }
           }
-
-        } else {
-          return <></>;
         }
+      } else {
+        return (
+          <SafeAreaView style={styles.container}>
+            <TouchableHighlight style={styles.headerIcon} onPress={() =>this.props.navigation.toggleDrawer()}>
+              <Image
+                  source={require('../img/slicing/menu-button.png')}
+                  style={{ height: 25, width: 25 }}
+                />
+            </TouchableHighlight>      
+            <Text style={styles.btnText}>You are not logged in! If you need to check your tickets, you need to sign in or register.</Text>
+            <TouchableHighlight style={styles.btn} onPress={() =>this.props.navigation.navigate('Profile')}>
+              <Text style={styles.btnText}>Log in or register.</Text>
+            </TouchableHighlight>
+          </SafeAreaView>
+        );
       }
     }
   
@@ -77,11 +95,11 @@ class TicketScreen extends React.Component {
     }
 }
 
-
 const mapStateToProps = state => {
     return {
          tickets: state.tickets.result,
-         shouldRedirect: state.redirect.shouldRedirect
+         shouldRedirect: state.redirect.shouldRedirect,
+         user: state.user.result
     };
 };
 

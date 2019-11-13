@@ -5,13 +5,12 @@ export default StyleSheet.create({
             padding: 5,
             flex: 1,
             alignItems:'center',
-            justifyContent:'center',
-            //backgroundColor: '#0481bf',
+            //justifyContent:'center',
         },
         
         textInput: { 
             height: 40,
-            width: '100%',
+            width: '100%', 
             color: 'white',
             borderRadius: 2,
             borderRightColor: 'white',

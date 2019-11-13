@@ -35,7 +35,7 @@ class Form extends React.Component {
     }
 
     handlePress = (formValues) => {
-      this.props.addVehicle(formValues);
+      this.props.addVehicle(formValues, this.props.user[0].id);
       this.props.onButtonPress();
     }
    
@@ -47,7 +47,7 @@ class Form extends React.Component {
               <Image
                   source={require('../../img/slicing/X-close-overlay.png')}
                   style={{ height: 25, width: 25 }}
-                />
+                /> 
             </TouchableHighlight>
             <Text style={styles.whiteText}>Add a new car to your list</Text>
             <Field name="vehicle_number" component={this.renderInput} placeholder="Enter your car number" />
@@ -81,8 +81,13 @@ const validate = formValues => {
     return errors;
 };
 
+const mapStateToProps = state => {
+  return {
+      user: state.user.result
+  };
+};
 
-const AddCarForm = connect(null, { addVehicle, redirectTrue })(Form);
+const AddCarForm = connect(mapStateToProps, { addVehicle, redirectTrue })(Form);
   
 export default reduxForm({
     form: 'AddCarForm',

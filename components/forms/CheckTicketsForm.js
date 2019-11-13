@@ -36,8 +36,6 @@ class Form extends React.Component {
         );
     }
 
-   
-
     renderPicker = ({input, name, meta, placeholder}) => {
         const renderField = (name) => {
                 return (
@@ -52,8 +50,7 @@ class Form extends React.Component {
                 >
                     <Picker.Item label="Z" color="red" value="Z" />
                     <Picker.Item label="G" color="red"value="G" />
-                </Picker>
-                    
+                </Picker>      
                 );
         }; 
 
@@ -66,10 +63,8 @@ class Form extends React.Component {
         );
     }
 
-    
-
     handlePress = (formValues) => {
-        this.props.checkTickets(formValues);
+        this.props.checkTickets(formValues, this.props.user[0].id);
         this.props.redirectTrue();
     }
   
@@ -99,20 +94,16 @@ const validate = formValues => {
       errors.vehicle_code = 'Must enter a vehicle_code';
     }
 
-    if(!formValues.salt) {
-      errors.salt = 'Must enter a salt';
-    } 
-  
-  
-    if (!formValues.token) { 
-      errors.token = 'Must enter a token';
-    }
-    
     return errors;
+}; 
+
+const mapStateToProps = state => {
+    return {
+        user: state.user.result
+    };
 };
 
-
-const CheckTicketsForm = connect(null, { checkTickets, redirectTrue })(Form);
+const CheckTicketsForm = connect(mapStateToProps, { checkTickets, redirectTrue })(Form);
   
 export default reduxForm({
     form: 'CheckTicketsForm',

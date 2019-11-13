@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { loginAction } from '../../actions';
+import { registerAction } from '../../actions';
 import styles from '../style/styles';
 import { 
     Text,
@@ -18,7 +18,7 @@ class Form extends React.Component {
         if(error && touched) {
             return <Text>{error}</Text>;
         }
-    } 
+    }
 
     renderInput = ({input, name, meta, placeholder}) => {
         const renderField = (name) => {
@@ -35,9 +35,8 @@ class Form extends React.Component {
     }
 
     handlePress = (formValues) => {
-        this.props.loginAction(formValues);
-        this.props.onButtonPress();
-        
+        this.props.registerAction(formValues);
+        this.props.onButtonPress(); 
     }
   
     render() {
@@ -51,12 +50,12 @@ class Form extends React.Component {
                 />
             </TouchableHighlight>
             <View>
-                <Text style={styles.whiteText}>Login form</Text>
+                <Text style={styles.whiteText}>Register form</Text>
                 <Field name="email" component={this.renderInput} placeholder="Enter your email" />
                 <Field name="password" component={this.renderInput} placeholder="Enter your password" />
                 <Text> </Text>
                 <TouchableHighlight onPress={this.props.handleSubmit(this.handlePress)} style={styles.btn}>
-                <Text style={styles.btnText}>Login</Text>  
+                <Text style={styles.btnText}>Register</Text>  
                 </TouchableHighlight>
             </View>
           </View>
@@ -78,9 +77,9 @@ const validate = formValues => {
     return errors;
 };
 
-const LoginForm = connect(null, { loginAction })(Form);
+const RegisterForm = connect(null, { registerAction })(Form);
   
 export default reduxForm({
-    form: 'LoginForm',
+    form: 'RegisterForm',
     validate
-})(LoginForm);
+})(RegisterForm);

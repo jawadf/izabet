@@ -27,7 +27,7 @@ class Form extends React.Component {
 
         return (
             <>
-                <Text>{name}</Text>
+                <Text>{name}</Text> 
                 {renderField(name)}
                 {this.renderError(meta)}
             </>
@@ -35,7 +35,7 @@ class Form extends React.Component {
     }
 
     handlePress = (formValues) => {
-        this.props.addVehicleName(formValues, this.props.currentNumber, this.props.currentCode);
+        this.props.addVehicleName(formValues, this.props.currentNumber, this.props.currentCode, this.props.user[0].id);
         this.props.onButtonPress();
 
     }
@@ -73,8 +73,13 @@ const validate = formValues => {
     return errors;
 };
 
+const mapStateToProps = state => {
+  return {
+      user: state.user.result
+  };
+};
 
-const AddCarForm = connect(null, { addVehicleName })(Form);
+const AddCarForm = connect(mapStateToProps, { addVehicleName })(Form);
   
 export default reduxForm({
     form: 'AddCarNameForm',
